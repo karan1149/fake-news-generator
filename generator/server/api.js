@@ -22,7 +22,8 @@ for (var i = 0; i < fakesites.length; i++){
   }
 }
 
-output = input.join("\n\n\n\n\n\n\n\n\n");
+
+output = joinInput(input);
 
 __ROOT_APP_PATH__ = '/Users/Karan/Projects/fakenewsgenerator/generator/server';
 
@@ -51,7 +52,7 @@ function isNumeric(obj) {
 }
 
 // return false if it errors
-function extractHTML(url){
+function extractArticle(url){
   console.log(url);
 
   wrappedRequest = Meteor.wrapAsync(request);
@@ -104,6 +105,13 @@ function extractHTML(url){
 
 }
 
+
+function joinInput(input){
+  input = input.filter(function(elm){
+    return elm.trim().length > 0;
+  });
+  return input.join("\n\n\n\n\n\n\n\n\n");
+}
 
 function lengthTest(ind, elm){
   linkText = $(this).text().trim();
