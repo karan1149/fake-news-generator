@@ -12,6 +12,16 @@ import {fakesites} from './fakesites.js'
 //   }
 //   return {input: featureArray, output: [1]};
 // });
+
+var input = [];
+for (var i = 0; i < fakesites.length; i++){
+  url = "http://" + fakesites[i].url;
+  html = extractHTML(url);
+  if (html){
+    input.push(html);
+  }
+}
+
 output = input.join("\n\n\n\n\n\n\n\n\n");
 
 __ROOT_APP_PATH__ = '/Users/Karan/Projects/fakenewsgenerator/generator/server';
