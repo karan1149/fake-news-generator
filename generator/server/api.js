@@ -36,3 +36,69 @@ fs.writeFileSync(__ROOT_APP_PATH__  + '/output.txt', output);
 // console.log(trainingString);
 
 
+function isNumeric(obj) {
+    return !isNaN(parseInt(obj));
+}
+
+// return false if it errors
+function extractHTML(url){
+  console.log(url);
+
+  wrappedRequest = Meteor.wrapAsync(request);
+  try {
+    res = wrappedRequest({url: url, timeout: 10000});
+    if (res.statusCode == 200){
+      html = res.body;
+    } else {
+      console.log("bad status code", res, url);
+      return false;
+    }
+  } catch(e) {
+    console.log("error", e, url);
+    return false;
+  }
+
+  $ = cheerio.load(html);
+  links = $("body a").filter(lengthTest);
+  median = Math.floor(links.length / 2);
+  console.log(links.eq(median).text());
+  url = links.eq(median).attr('href');
+  if (!url){
+    console.log('bad url', links.eq(median).text());
+    return false;
+  }
+  // console.log(body);
+  wrappedRequest = Meteor.wrapAsync(request);
+  try {
+    res = wrappedRequest({url: url, timeout: 10000});
+    if (res.statusCode == 200){
+      html = res.body;
+    } else {
+      console.log("bad status code in loading article", res, url);
+      return false;
+    }
+  } catch(e) {
+    console.log("error in loading article", e, url);
+    return false;
+  }
+  $ = cheerio.load(html);
+  article = $("article p").text();
+  if (!article){
+    article = $("div.entry-content p").text();
+  }
+  if (!article){
+    article = $("div.entry-content").text();
+  }
+  console.log(article);
+  return article;
+
+}
+
+
+function lengthTest(ind, elm){
+  linkText = $(this).text().trim();
+  link = $(this).attr('href');
+  if (linkText.length < 20 || linkText.length > 130 || !link || link.length < 30) return false;
+  // console.log(linkText);
+  return true;
+}
