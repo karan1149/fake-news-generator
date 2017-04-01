@@ -14,14 +14,24 @@ import {fakesites} from './fakesites.js'
 // });
 
 var input = [];
-for (var i = 0; i < fakesites.length; i++){
-  url = "http://" + fakesites[i].url;
-  html = extractHTML(url);
-  if (html){
-    input.push(html);
+// for (var i = 0; i < fakesites.length; i++){
+//   url = "http://" + fakesites[i].url;
+//   html = extractArticle(url);
+//   if (html){
+//     input.push(html);
+//   }
+// }
+
+var selectedSites = ['yournewswire.com', 'christiantimes.com', 'americannews.com', 'breitbart.com', 'infowars.com', 'thedcgazette.com', '100percentfedup.com', '70news.wordpress.com', ];
+
+for (var j = 0; j < selectedSites.length; j++){
+  // console.log(selectedSites.length);
+  url = "http://" + selectedSites[j];
+  articles = extractArticles(url);
+  if (articles){
+    input.push(articles);
   }
 }
-
 
 output = joinInput(input);
 
@@ -73,11 +83,13 @@ function extractArticle(url){
   links = $("body a").filter(lengthTest);
   median = Math.floor(links.length / 2);
   console.log(links.eq(median).text());
+  originalUrl = url;
   url = links.eq(median).attr('href');
   if (!url){
     console.log('bad url', links.eq(median).text());
     return false;
   }
+
   // console.log(body);
   wrappedRequest = Meteor.wrapAsync(request);
   try {
