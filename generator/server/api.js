@@ -167,11 +167,11 @@ function extractArticles(url){
         html = res.body;
       } else {
         console.log("bad status code in loading article", res, url);
-        return false;
+        continue;
       }
     } catch(e) {
       console.log("error in loading article", e, url);
-      return false;
+      continue;
     }
 
     $ = cheerio.load(html);
