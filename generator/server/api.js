@@ -22,7 +22,7 @@ var input = [];
 //   }
 // }
 
-var selectedSites = ['yournewswire.com', 'christiantimes.com', 'americannews.com', 'breitbart.com', 'infowars.com', 'thedcgazette.com', '100percentfedup.com', '70news.wordpress.com', ];
+var selectedSites = ['breitbart.com',  'infowars.com',  'newsbreakshere.com','dailyleak.org','conservativedailypost.com',  'libertywriters.com', 'beforeitsnews.com', 'thelastlineofdefense.org', 'empirenews.net', 'thedcgazette.com','100percentfedup.com', '70news.wordpress.com','americannews.com', 'yournewswire.com','christiantimes.com'  ];
 
 for (var j = 0; j < selectedSites.length; j++){
   // console.log(selectedSites.length);
