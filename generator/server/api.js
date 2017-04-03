@@ -182,7 +182,10 @@ function extractArticles(url){
     if (!article){
       article = $("div.entry-content").text();
     }
-    console.log(article.substring(0, 150));
+    if (!article){
+      article = $("#story_wrapper #body p").text();
+    }
+    // console.log(article.substring(0, 150));
     if (article){
       articles.push(article);
     }
