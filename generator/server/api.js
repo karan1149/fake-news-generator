@@ -146,7 +146,7 @@ function extractArticles(url){
   originalUrl = url;
   for (i = 0; i < links.length; i++){
 
-    if (titles.has(links.eq(i).attr('href'))){
+    if (titles.has(links.eq(i).attr('href')) || links.eq(i).text().toLowerCase().includes("terms and conditions")|| links.eq(i).text().toLowerCase().includes("terms of service")){
       continue;
     }
     titles.add(links.eq(i).attr('href'));
