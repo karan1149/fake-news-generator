@@ -201,6 +201,31 @@ function joinInput(input){
   input = input.filter(function(elm){
     return elm.trim().length > 0;
   });
+  input = input.map(function(elm){
+    beginLength = "SIGN UP FOR OUR NEWSLETTER".length;
+    begin = elm.indexOf("SIGN UP FOR OUR NEWSLETTER");
+    if (begin != -1){
+      elm = elm.substring(begin + beginLength);
+    }
+    beginLength = "Views ".length;
+    begin = elm.indexOf("Views ");
+    if (begin != -1 && begin < 85 && begin > 55){
+      elm = elm.substring(begin + beginLength);
+    }
+    elm = elm.replace(/To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video \(.{0,100}\)/g, "");
+    elm = elm.replace(/To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video/g, "");
+    elm = elm.replace(/\w{3,12} \d{1,2}, 20\d{2}\n.{0,100}\n.{0,100}\n\d{1,6}/g, "");
+    elm = elm.replace(/by [\w ]{3,100} \d{1,3} .{3,7} ago\d/g, "");
+    elm = elm.replace(/\nPosted By: .{5,50}\n\d{1,2}\/\d{1,2}\/\d{4}\n/g, "");
+    elm = elm.replace(/\n.{3,30}\n.{3,100}\n\d{1,6}\n/g, "");
+    elm = elm.replace(/\(Before It's News\).\d{1,2}-\d{1,2}-\d{2}/, "");
+    elm = elm.replace(/\(Before It's News\)/, "");
+    elm = elm.replace(/Posted by .{3,23} \| .{1,10}, 20\d\d \| .{0,35}Advertisement/, "");
+    // elm = elm.replace(/.{3,15}\n.?\n.?.?\n.?.?.{4,11}ago.?\n.{0,1}.{4,35}\n.{0,1}\n\d{1,7} Views /, "");
+    elm = elm.trim();
+    console.log(elm.substring(0, 150));
+    return elm;
+  });
   return input.join("\n\n\n\n\n\n\n\n\n");
 }
 
